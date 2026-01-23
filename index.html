@@ -1,33 +1,43 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="pt-br">
 <head>
-  <meta charset="UTF-8">
-  <meta name="description" content="Acesse sua conta DevImages">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <link rel="stylesheet" href="style.css">
-  <title>DevImags - Login</title>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Promoções Imperdiveis</title>
+  <!-- Importa o CSS externo -->
+  <link rel="stylesheet" href="style.css" />
 </head>
 <body>
-  <p>Acessando sua conta DevImags com segurança!!</p>
-  <main class="nav-main">
-    <form>
-      <h2>Login</h2>
-      <label for="name" class="lb-input">Email</label>
-      <input type="email" name="email" id="name" class="btn-input" placeholder="Digite aqui seu email" required>
-      <label for="password" class="lb-input">Senha</label>
-      <input type="password" minlength="4" maxlength="8" name="password" id="password" class="btn-input" placeholder="Digite sua senha" required>
-  
-      <button type="submit" id="btn-entrar">Entrar</button>
+  <header>
+    <h1>Links de Afiliados — Mercado Livre</h1>
+    <p>Centralize seus links de divulgação e campanhas.</p>
+    <input id="search" type="search" placeholder="Buscar por título, categoria ou campanha…" />
+    <button id="toggleTheme">Modo claro/escuro</button>
+  </header>
 
-      <p>Esqueceu a senha? <a href="#">trocar senha</a></p>
-      <div class="btn-checkbox">
-        <input type="checkbox" name="lembrar" id="btn-lembrar" checked>
-        <label for="btn-lembrar">Lembrar-se de mim!!</label>
+  <main>
+    <section>
+      <h2>Produtos em Destaque</h2>
+      <div class="grid">
+        <article class="card" data-title="Fone Bluetooth XYZ" data-category="Eletrônicos" data-campaign="Q1-2026">
+          <a href="https://www.mercadolivre.com.br/SEU-LINK-DE-AFILIADO" target="_blank">Fone Bluetooth XYZ</a>
+          <p>Eletrônicos • Campanha: Q1-2026</p>
+        </article>
       </div>
-    </form>
+    </section>
 
-
+    <section>
+      <h2>Campanhas Ativas</h2>
+      <div class="grid">
+        <article class="card" data-title="Smart TV 50'' 4K" data-category="Eletrônicos" data-campaign="Semana-da-Tecnologia">
+          <a href="https://www.mercadolivre.com.br/SEU-LINK-DE-AFILIADO" target="_blank">Smart TV 50'' 4K</a>
+          <p>Eletrônicos • Campanha: Semana-da-Tecnologia</p>
+        </article>
+      </div>
+    </section>
   </main>
 
+  <!-- Importa o JS externo -->
+  <script src="script.js"></script>
 </body>
 </html>
