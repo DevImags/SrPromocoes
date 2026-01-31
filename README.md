@@ -4,7 +4,7 @@
 - Criar uma pagina WEB em que possa armazenar links de afiliados dos marktplaces para que eventualmente gere renda atraves da comissão
 
 ## 📸 Prévia
-> Em breve
+> Em breve..
 
 ---
 
