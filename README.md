@@ -1,7 +1,7 @@
 # 🔐 Pagina de Promoçoes
 
 # Objetivo do projeto
-- Criar uma pagina WEB em que possa armazenar links de afiliados dos marktplaces para que eventualmente gere renda atraves da comissão
+- Criar uma pagina WEB em que possa armazenar links em cards
 
 ## 📸 Prévia
 > Em breve..
