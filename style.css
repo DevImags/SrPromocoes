@@ -1,3 +1,7 @@
+/* =========================================================
+   BASE (mantém fonte, ajusta scroll e evita overflow lateral)
+   ========================================================= */
+
 * {
   font-family: Arial, Helvetica, sans-serif;
   font-size: 16px;
@@ -6,171 +10,850 @@
   box-sizing: border-box;
 }
 
+/* REGRA CRÍTICA: permitir rolagem vertical e bloquear horizontal */
 html, body {
-  height: 100vh;
+  height: auto;
   width: 100%;
   margin: 0;
   padding: 0;
-  background: linear-gradient(to top,#00005a,#01015a,#01016d,#0101b1,#0303f8);
-  overflow: hidden; /* remove rolagem lateral e vertical */
+  overflow-x: hidden;  /* evita scroll lateral */
+  overflow-y: auto;    /* permite scroll vertical */
+  background: radial-gradient(1200px 600px at 10% 0%, rgba(16, 96, 255, 0.25), transparent 55%),
+              radial-gradient(900px 500px at 90% 10%, rgba(255, 204, 0, 0.12), transparent 55%),
+              linear-gradient(180deg, #021a2c 0%, #062c43 45%, #061f33 100%);
+  color: #eaf3ff;
 }
 
-/* Header */
-.header {
-  display: flex;
-  justify-content: space-between;
-  align-items: center;
-  margin: 10px auto 0;
-  max-width: 98%;
-  height: 70px;
-  border-radius: 5px;
-  background-color: rgba(0, 0, 0, 0.3);
-  padding: 0 20px;
+:root{
+  --aff-blue: #0b5ed7;
+  --aff-blue-dark: #003a8f;
+  --aff-bg: #062c43;
+  --aff-card: rgba(255,255,255,0.06);
+  --aff-card-strong: rgba(255,255,255,0.10);
+  --aff-border: rgba(255,255,255,0.14);
+  --aff-text: #eaf3ff;
+  --aff-muted: rgba(234,243,255,0.72);
+  --aff-yellow: #ffcc00;
+  --aff-shadow: 0 10px 30px rgba(0,0,0,0.25);
 }
 
-.logo {
-  color: white;
-  font-size: 1.4rem;
-  font-weight: bold;
-}
-
+/* Links básicos */
 a {
-  font-size: 1.2rem;
   text-decoration: none;
-  color: rgb(4, 4, 114);
 }
 
-a:hover {
-  color: rgb(255, 255, 255);
+/* =========================================================
+   HEADER (CLASSES EXISTENTES: .header, .logo, nav ul, hamburger)
+   ========================================================= */
+
+.header {
+  display: grid;
+  grid-template-columns: auto 1fr auto auto;
+  grid-template-areas:
+    "logo search actions burger"
+    "nav  nav    nav    nav";
+  gap: 12px;
+  align-items: center;
+
+  margin: 12px auto 0;
+  max-width: 1180px;
+  padding: 14px 16px;
+  border-radius: 14px;
+
+  background: rgba(0, 0, 0, 0.22);
+  border: 1px solid var(--aff-border);
+  box-shadow: var(--aff-shadow);
+  backdrop-filter: blur(10px);
+}
+
+/* Logo existente (classe mantida) */
+.logo {
+  grid-area: logo;
+  color: #ffffff;
+  font-size: 1.25rem;
+  font-weight: 800;
+  letter-spacing: 0.3px;
+  white-space: nowrap;
+}
+
+/* NOVO: busca (aff-*) */
+.aff-search {
+  grid-area: search;
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  padding: 8px;
+  border-radius: 12px;
+  background: rgba(255,255,255,0.08);
+  border: 1px solid rgba(255,255,255,0.14);
+}
+
+.aff-search-input {
+  width: 100%;
+  min-width: 180px;
+  border: none;
+  outline: none;
+  background: transparent;
+  color: var(--aff-text);
+  font-size: 1rem;
+  padding: 8px 10px;
+}
+
+.aff-search-input::placeholder {
+  color: rgba(234,243,255,0.62);
+}
+
+.aff-search-btn {
+  border: none;
+  cursor: pointer;
+  padding: 10px 12px;
+  border-radius: 10px;
+  background: linear-gradient(180deg, var(--aff-yellow), #ffd84d);
+  color: #0b1d2e;
+  font-weight: 800;
+  box-shadow: 0 8px 18px rgba(255, 204, 0, 0.22);
+}
+
+.aff-search-btn:hover {
+  filter: brightness(1.03);
+}
+
+/* NOVO: ícones à direita (aff-*) */
+.aff-actions {
+  grid-area: actions;
+  display: flex;
+  align-items: center;
+  gap: 10px;
+}
+
+.aff-action {
+  width: 40px;
+  height: 40px;
+  display: inline-flex;
+  justify-content: center;
+  align-items: center;
+  border-radius: 12px;
+
+  background: rgba(255,255,255,0.08);
+  border: 1px solid rgba(255,255,255,0.14);
+  color: #ffffff;
+  font-size: 1.05rem;
+}
+
+.aff-action:hover {
+  background: rgba(255,255,255,0.12);
+}
+
+/* NAV existente (mantido) */
+.header nav {
+  grid-area: nav;
+  width: 100%;
 }
 
 .header nav ul {
   display: flex;
   list-style: none;
-  margin: 0;
+  gap: 10px;
   padding: 10px;
-  justify-content: space-around;
+  justify-content: space-between;
   align-items: center;
-  height: 100%;
-  background-color: aliceblue;
+
+  border-radius: 12px;
+  background: rgba(255,255,255,0.92);
+  border: 1px solid rgba(0,0,0,0.08);
 }
 
 .header nav ul li {
-  margin-left: 20px;
+  margin-left: 0; /* neutraliza regra antiga se existir */
 }
 
-/* Botão hambúrguer */
+.header nav ul a {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  padding: 10px 12px;
+
+  color: #06315b;
+  font-weight: 700;
+  font-size: 0.95rem;
+  border-radius: 10px;
+  transition: background 0.2s ease, transform 0.2s ease, color 0.2s ease;
+  white-space: nowrap;
+}
+
+.header nav ul a:hover {
+  background: rgba(11, 94, 215, 0.10);
+  color: #0b5ed7;
+  transform: translateY(-1px);
+}
+
+/* Hamburger existente */
 .hamburger {
+  grid-area: burger;
   display: none;
   flex-direction: column;
   cursor: pointer;
+  justify-content: center;
+  padding: 6px;
+  border-radius: 10px;
+  border: 1px solid rgba(255,255,255,0.14);
+  background: rgba(255,255,255,0.06);
 }
 
 .hamburger span {
   height: 3px;
-  width: 25px;
+  width: 26px;
   background: white;
   margin: 4px 0;
   border-radius: 2px;
   transition: 0.3s;
 }
 
-/* Responsividade */
-@media (max-width: 768px) {
-  .header nav ul {
-    position: absolute;
-    top: 70px;
-    right: 0;
-    background: rgba(0,0,0,0.8);
-    flex-direction: column;
-    width: 200px;
-    height: 0;
-    overflow: hidden;
-    transition: height 0.3s ease;
-  }
-
-  .header nav ul.show {
-    height: 250px;
-  }
-
-  .header nav ul li {
-    margin: 15px 0;
-    text-align: center;
-  }
-
-  .hamburger {
-    display: flex;
-  }
+/* Itens só desktop (classe nova começa com aff-) */
+.aff-only-desktop {
+  display: list-item;
 }
 
-/* Main */
-.main {
-  margin: 15px auto;
-  height: calc(100vh - 115px); /* ajusta dinamicamente abaixo do header */
-  max-width: 98%;
-  border-radius: 5px;
-  background-color: rgba(255, 255, 255, 0.3);
-  padding: 20px;
-  color: white;
+/* =========================================================
+   HERO (section.hero mantida + aff-hero)
+   ========================================================= */
+
+.hero.aff-hero {
+  max-width: 1180px;
+  margin: 16px auto 0;
+  padding: 0 12px;
+}
+
+.aff-hero-inner {
+  position: relative;
   overflow: hidden;
+  border-radius: 18px;
+  border: 1px solid var(--aff-border);
+  background:
+    radial-gradient(900px 340px at 20% 10%, rgba(255, 204, 0, 0.16), transparent 55%),
+    radial-gradient(800px 340px at 80% 10%, rgba(11, 94, 215, 0.35), transparent 55%),
+    linear-gradient(135deg, rgba(0, 58, 143, 0.75), rgba(2, 26, 44, 0.88));
+  box-shadow: var(--aff-shadow);
+  min-height: 260px;
 }
 
+.aff-hero-slide {
+  padding: 34px 26px 56px;
+}
+
+.aff-hero-kicker {
+  color: rgba(234,243,255,0.80);
+  font-weight: 700;
+  letter-spacing: 0.2px;
+  margin-bottom: 8px;
+}
+
+.aff-hero-title {
+  font-size: 2rem;
+  font-weight: 900;
+  line-height: 1.1;
+  margin-bottom: 10px;
+}
+
+.aff-hero-subtitle {
+  color: rgba(234,243,255,0.85);
+  max-width: 680px;
+  line-height: 1.5;
+  margin-bottom: 16px;
+}
+
+.aff-hero-subtitle strong {
+  color: #ffffff;
+}
+
+.aff-hero-cta {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 10px;
+  margin-bottom: 16px;
+}
+
+.aff-btn {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 10px;
+  padding: 12px 16px;
+  border-radius: 12px;
+  font-weight: 900;
+  border: 1px solid transparent;
+  cursor: pointer;
+  user-select: none;
+}
+
+.aff-btn-primary {
+  background: linear-gradient(180deg, var(--aff-yellow), #ffd84d);
+  color: #0b1d2e;
+  box-shadow: 0 10px 22px rgba(255, 204, 0, 0.22);
+}
+
+.aff-btn-primary:hover { filter: brightness(1.02); }
+
+.aff-btn-ghost {
+  background: rgba(255,255,255,0.08);
+  border-color: rgba(255,255,255,0.18);
+  color: #ffffff;
+}
+
+.aff-btn-ghost:hover { background: rgba(255,255,255,0.12); }
+
+.aff-hero-meta {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 8px;
+}
+
+.aff-pill {
+  display: inline-flex;
+  align-items: center;
+  padding: 8px 10px;
+  border-radius: 999px;
+  background: rgba(255,255,255,0.08);
+  border: 1px solid rgba(255,255,255,0.14);
+  color: rgba(234,243,255,0.85);
+  font-weight: 700;
+  font-size: 0.85rem;
+}
+
+/* Setas do hero (aff-*) */
+.aff-hero-arrow {
+  position: absolute;
+  top: 50%;
+  transform: translateY(-50%);
+  width: 42px;
+  height: 42px;
+  border-radius: 14px;
+  border: 1px solid rgba(255,255,255,0.18);
+  background: rgba(0,0,0,0.25);
+  color: #ffffff;
+  font-size: 1.8rem;
+  cursor: pointer;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  z-index: 2;
+}
+
+.aff-hero-arrow:hover {
+  background: rgba(0,0,0,0.35);
+}
+
+.aff-hero-prev { left: 14px; }
+.aff-hero-next { right: 14px; }
+
+/* Dots */
+.aff-hero-dots {
+  position: absolute;
+  left: 0;
+  right: 0;
+  bottom: 14px;
+  display: flex;
+  justify-content: center;
+  gap: 8px;
+  z-index: 2;
+}
+
+.aff-dot {
+  width: 10px;
+  height: 10px;
+  border-radius: 999px;
+  border: 1px solid rgba(255,255,255,0.45);
+  background: rgba(255,255,255,0.18);
+  cursor: pointer;
+}
+
+.aff-dot.is-active {
+  background: var(--aff-yellow);
+  border-color: rgba(255, 204, 0, 0.9);
+}
+
+/* =========================================================
+   BANNERS SECUNDÁRIOS (aff-*)
+   ========================================================= */
+
+.aff-banners {
+  max-width: 1180px;
+  margin: 16px auto 0;
+  padding: 0 12px;
+
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 14px;
+}
+
+.aff-banner {
+  display: grid;
+  grid-template-columns: 1fr 110px;
+  gap: 12px;
+  padding: 16px;
+  border-radius: 16px;
+  border: 1px solid var(--aff-border);
+  background: rgba(255,255,255,0.07);
+  box-shadow: 0 10px 24px rgba(0,0,0,0.18);
+  color: var(--aff-text);
+}
+
+.aff-banner:hover {
+  background: rgba(255,255,255,0.10);
+}
+
+.aff-banner-content h3 {
+  font-size: 1.05rem;
+  font-weight: 900;
+  margin-bottom: 6px;
+}
+
+.aff-banner-content p {
+  color: rgba(234,243,255,0.78);
+  line-height: 1.35;
+  margin-bottom: 10px;
+}
+
+.aff-banner-btn {
+  display: inline-flex;
+  padding: 9px 12px;
+  border-radius: 12px;
+  background: rgba(255,255,255,0.10);
+  border: 1px solid rgba(255,255,255,0.16);
+  color: #ffffff;
+  font-weight: 800;
+  width: fit-content;
+}
+
+.aff-banner-media {
+  border-radius: 14px;
+  background:
+    radial-gradient(60px 60px at 30% 30%, rgba(255, 204, 0, 0.35), transparent 55%),
+    radial-gradient(90px 90px at 70% 70%, rgba(11, 94, 215, 0.45), transparent 55%),
+    linear-gradient(135deg, rgba(255,255,255,0.12), rgba(255,255,255,0.02));
+  border: 1px solid rgba(255,255,255,0.12);
+}
+
+/* =========================================================
+   CATEGORIAS COM ÍCONES (aff-*)
+   ========================================================= */
+
+.aff-categories {
+  max-width: 1180px;
+  margin: 14px auto 0;
+  padding: 0 12px;
+
+  display: grid;
+  grid-template-columns: repeat(6, 1fr);
+  gap: 12px;
+}
+
+.aff-category {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  padding: 12px 12px;
+  border-radius: 14px;
+  border: 1px solid rgba(255,255,255,0.14);
+  background: rgba(255,255,255,0.06);
+  color: var(--aff-text);
+  min-height: 54px;
+}
+
+.aff-category:hover {
+  background: rgba(255,255,255,0.10);
+}
+
+.aff-cat-ico {
+  width: 34px;
+  height: 34px;
+  border-radius: 12px;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  background: rgba(255, 204, 0, 0.15);
+  border: 1px solid rgba(255, 204, 0, 0.25);
+  font-size: 1.05rem;
+}
+
+.aff-cat-label {
+  font-weight: 900;
+  font-size: 0.95rem;
+}
+
+/* âncoras invisíveis pra navegação */
+.aff-anchor {
+  height: 10px;
+}
+
+/* =========================================================
+   MAIN (classe existente .main mantida)
+   ========================================================= */
+
+.main {
+  margin: 16px auto 0;
+  max-width: 1180px;
+  padding: 16px 12px;
+  color: var(--aff-text);
+}
+
+.aff-welcome {
+  display: grid;
+  grid-template-columns: 1.2fr 0.8fr;
+  gap: 14px;
+
+  border-radius: 18px;
+  border: 1px solid var(--aff-border);
+  background: rgba(255,255,255,0.06);
+  box-shadow: var(--aff-shadow);
+  padding: 18px;
+}
+
+.aff-welcome-text h2 {
+  font-size: 1.35rem;
+  font-weight: 900;
+  margin-bottom: 8px;
+}
+
+.aff-welcome-text p {
+  color: rgba(234,243,255,0.80);
+  line-height: 1.55;
+  margin-bottom: 12px;
+}
+
+.aff-welcome-actions {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 10px;
+}
+
+.aff-welcome-side {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 10px;
+  align-content: start;
+}
+
+.aff-stat {
+  border-radius: 16px;
+  background: rgba(255,255,255,0.08);
+  border: 1px solid rgba(255,255,255,0.12);
+  padding: 12px;
+  text-align: center;
+}
+
+.aff-stat strong {
+  display: block;
+  font-size: 1.05rem;
+  font-weight: 900;
+  margin-bottom: 4px;
+}
+
+.aff-stat span {
+  color: rgba(234,243,255,0.72);
+  font-weight: 800;
+  font-size: 0.85rem;
+}
+
+/* =========================================================
+   PROMO CARD EXISTENTE (mantida .promo-card etc)
+   Melhorada sem renomear classes existentes
+   ========================================================= */
 
 .promo-card {
   display: flex;
   align-items: center;
-  background: linear-gradient(135deg, #4e54c8, #8f94fb);
-  border-radius: 12px;
-  padding: 20px;
-  margin: 20px auto;
-  max-width: 700px;
-  box-shadow: 0 4px 12px rgba(0,0,0,0.2);
+  gap: 16px;
+
+  background: linear-gradient(135deg, rgba(11, 94, 215, 0.35), rgba(255, 204, 0, 0.18));
+  border-radius: 18px;
+  padding: 18px;
+  margin: 16px 0 0;
+
+  border: 1px solid rgba(255,255,255,0.18);
+  box-shadow: 0 14px 28px rgba(0,0,0,0.22);
   color: #fff;
 }
 
 .promo-img {
-  width: 150px;
-  border-radius: 8px;
-  margin-right: 20px;
+  width: 140px;
+  height: 96px;
+  border-radius: 14px;
+  object-fit: cover;
+  border: 1px solid rgba(255,255,255,0.18);
+  background: rgba(255,255,255,0.08);
 }
 
 .promo-content h2 {
-  margin: 0 0 10px;
-  font-size: 1.5em;
+  margin: 0 0 6px;
+  font-size: 1.15rem;
+  font-weight: 900;
 }
 
 .promo-content p {
-  margin: 0 0 15px;
-  font-size: 1em;
+  margin: 0 0 10px;
+  color: rgba(255,255,255,0.88);
+  line-height: 1.35;
 }
 
 .promo-btn {
-  background-color: #ffcc00;
-  color: #000;
-  padding: 10px 20px;
-  border-radius: 6px;
+  background-color: var(--aff-yellow);
+  color: #0b1d2e;
+  padding: 10px 14px;
+  border-radius: 12px;
   text-decoration: none;
-  font-weight: bold;
-  transition: background 0.3s;
+  font-weight: 900;
+  display: inline-flex;
+  width: fit-content;
 }
 
 .promo-btn:hover {
-  background-color: #ffd633;
+  filter: brightness(1.03);
 }
 
-.menu-grid {
+/* =========================================================
+   OFFERS (classe existente .offers mantida)
+   ========================================================= */
+
+.offers.aff-offers {
+  max-width: 1180px;
+  margin: 18px auto 0;
+  padding: 0 12px 28px;
+}
+
+.aff-section-head {
+  padding: 14px 2px 12px;
+}
+
+.aff-section-head h2 {
+  font-size: 1.35rem;
+  font-weight: 900;
+  margin-bottom: 6px;
+}
+
+.aff-section-head p {
+  color: rgba(234,243,255,0.72);
+  line-height: 1.4;
+}
+
+/* grid responsivo pedido: desktop 4 / tablet 2 / mobile 1 */
+.aff-products-grid {
   display: grid;
-  grid-template-columns: repeat(3, 10px);
-  grid-gap: 5px;
-  cursor: pointer;
-  align-items: end;
-  justify-content: end;
+  grid-template-columns: repeat(4, 1fr);
+  gap: 14px;
 }
 
-.menu-grid span {
-  width: 10px;
-  height: 10px;
-  background: #333;
-  border-radius: 50%;
-  display: block;
+/* Card com classe existente .offer-card (NÃO renomeada) */
+.offer-card.aff-product-card {
+  border-radius: 18px;
+  border: 1px solid rgba(255,255,255,0.14);
+  background: rgba(255,255,255,0.06);
+  box-shadow: 0 12px 26px rgba(0,0,0,0.18);
+  padding: 14px;
+  color: var(--aff-text);
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+}
+
+.aff-product-media {
+  position: relative;
+  height: 140px;
+  border-radius: 16px;
+  border: 1px solid rgba(255,255,255,0.12);
+  background:
+    radial-gradient(140px 80px at 30% 35%, rgba(255, 204, 0, 0.22), transparent 60%),
+    radial-gradient(160px 100px at 70% 65%, rgba(11, 94, 215, 0.38), transparent 60%),
+    linear-gradient(135deg, rgba(255,255,255,0.10), rgba(255,255,255,0.02));
+  overflow: hidden;
+}
+
+.aff-badge {
+  position: absolute;
+  left: 10px;
+  top: 10px;
+  padding: 8px 10px;
+  border-radius: 999px;
+  background: rgba(255, 204, 0, 0.95);
+  color: #0b1d2e;
+  font-weight: 900;
+  font-size: 0.85rem;
+  border: 1px solid rgba(255, 204, 0, 0.9);
+}
+
+.aff-product-title {
+  font-size: 0.98rem;
+  font-weight: 900;
+  line-height: 1.25;
+
+  /* 2 linhas */
+  display: -webkit-box;
+  -webkit-line-clamp: 2;
+  -webkit-box-orient: vertical;
+  overflow: hidden;
+  min-height: 2.5em;
+}
+
+.aff-product-prices {
+  display: flex;
+  flex-direction: column;
+  gap: 2px;
+}
+
+.aff-price-old {
+  color: rgba(234,243,255,0.60);
+  text-decoration: line-through;
+  font-weight: 800;
+  font-size: 0.9rem;
+}
+
+.aff-price-now {
+  color: #ffffff;
+  font-weight: 1000;
+  font-size: 1.25rem;
+}
+
+.aff-product-btn {
+  width: 100%;
+  justify-content: center;
+}
+
+/* =========================================================
+   FOOTER (aff-*)
+   ========================================================= */
+
+.aff-footer {
+  margin-top: 20px;
+  padding: 18px 12px 30px;
+}
+
+.aff-footer-inner {
+  max-width: 1180px;
+  margin: 0 auto;
+  border-radius: 18px;
+  border: 1px solid rgba(255,255,255,0.14);
+  background: rgba(0,0,0,0.18);
+  box-shadow: 0 12px 24px rgba(0,0,0,0.20);
+  padding: 16px;
+  display: flex;
+  justify-content: space-between;
+  gap: 14px;
+  color: rgba(234,243,255,0.85);
+}
+
+.aff-footer-inner strong {
+  color: #ffffff;
+  font-weight: 900;
+}
+
+.aff-footer-inner p {
+  margin-top: 6px;
+  color: rgba(234,243,255,0.70);
+  line-height: 1.35;
+}
+
+.aff-footer-links {
+  display: flex;
+  gap: 12px;
+  flex-wrap: wrap;
+  align-items: start;
+  justify-content: flex-end;
+}
+
+.aff-footer-links a {
+  color: rgba(234,243,255,0.85);
+  font-weight: 800;
+  padding: 8px 10px;
+  border-radius: 12px;
+  background: rgba(255,255,255,0.06);
+  border: 1px solid rgba(255,255,255,0.12);
+}
+
+.aff-footer-links a:hover {
+  background: rgba(255,255,255,0.10);
+}
+
+/* =========================================================
+   RESPONSIVIDADE + MENU MOBILE (mantém toggleMenu + .show)
+   ========================================================= */
+
+@media (max-width: 1024px) {
+  .aff-products-grid { grid-template-columns: repeat(2, 1fr); }
+  .aff-categories { grid-template-columns: repeat(3, 1fr); }
+  .aff-banners { grid-template-columns: 1fr; }
+  .aff-only-desktop { display: none; }
+}
+
+@media (max-width: 768px) {
+  .header {
+    grid-template-columns: 1fr auto;
+    grid-template-areas:
+      "logo burger"
+      "search search"
+      "actions actions"
+      "nav nav";
+  }
+
+  .logo { font-size: 1.1rem; }
+
+  .hamburger { display: flex; }
+
+  /* nav UL vira dropdown (mantém seletor .header nav ul e classe .show) */
+  .header nav ul {
+    flex-direction: column;
+    align-items: stretch;
+    justify-content: flex-start;
+    gap: 8px;
+
+    /* fechado por padrão */
+    height: 0;
+    overflow: hidden;
+    padding: 0 10px;
+    border-radius: 14px;
+    transition: height 0.28s ease, padding 0.28s ease;
+  }
+
+  .header nav ul.show {
+    height: 320px;
+    padding: 10px;
+  }
+
+  .header nav ul a {
+    justify-content: flex-start;
+  }
+
+  .aff-actions {
+    justify-content: flex-start;
+  }
+
+  .aff-hero-title { font-size: 1.6rem; }
+
+  .aff-welcome {
+    grid-template-columns: 1fr;
+  }
+
+  .aff-welcome-side {
+    grid-template-columns: repeat(3, 1fr);
+  }
+
+  .aff-products-grid { grid-template-columns: 1fr; }
+
+  .promo-card {
+    flex-direction: column;
+    align-items: flex-start;
+  }
+
+  .promo-img {
+    width: 100%;
+    height: 140px;
+  }
+
+  .aff-hero-arrow {
+    display: none; /* em mobile fica mais limpo, dots + auto resolve */
+  }
+}
+
+/* Acessibilidade básica */
+@media (prefers-reduced-motion: reduce) {
+  * { transition: none !important; }
 }
