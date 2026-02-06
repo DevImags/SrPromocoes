@@ -1,58 +1,391 @@
 <!DOCTYPE html>
 <html lang="pt-BR">
 <head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Promoções</title>
-  <link rel="stylesheet" href="style.css">
+  <meta charset="UTF-8" />
+  <meta name="description" content="Compre eletrônicos, acessórios e muito mais com entrega rápida." />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>As Melhores Promoções</title>
+
+  <link rel="icon" type="image/png" href="Icon/icon.1.png" />
+  <link rel="stylesheet" href="style.css" />
 </head>
 
-<body>
+<body id="Home">
+
+  <!-- =========================================================
+       HEADER (MANTIDO: estrutura + classes + hamburger onclick)
+       ========================================================= -->l
   <header>
     <div class="header">
-      <div class="logo">Promoções</div>
+      <!-- Logo (classe mantida) -->
+      <div class="logo">SrPromoções</div>
 
-      <!-- Barra de busca simples -->
-      <div class="top-search">
-        <input type="text" placeholder="Buscar ofertas, cupons ou produtos">
-        <button>Buscar</button>
+      <!-- Busca (NOVO: aff-*) -->
+      <div class="aff-search" role="search" aria-label="Busca de ofertas">
+        <input class="aff-search-input" type="search" placeholder="Buscar ofertas, cupons e produtos..." aria-label="Buscar" />
+        <button class="aff-search-btn" type="button" aria-label="Pesquisar">
+          🔍
+        </button>
       </div>
 
-      <!-- Menu hambúrguer (mantido) -->
-      <div class="hamburger" onclick="toggleMenu()">
-        <span></span>
-        <span></span>
-        <span></span>
+      <!-- Ícones (NOVO: aff-*) -->
+      <div class="aff-actions" aria-label="Ações rápidas">
+        <a class="aff-action" href="#Favoritos" aria-label="Favoritos" title="Favoritos">♥</a>
+        <a class="aff-action" href="#Carrinho" aria-label="Carrinho" title="Carrinho">🛒</a>
+        <a class="aff-action" href="#Conta" aria-label="Conta" title="Conta">👤</a>
       </div>
 
-      <nav>
+      <!-- Menu de navegação (MANTIDO: nav > ul + anchors existentes) -->
+      <nav aria-label="Categorias">
         <ul>
-          <li><a href="#">Home</a></li>
-          <li><a href="#">Cupons</a></li>
-          <li><a href="#">Super Descontos</a></li>
-          <li><a href="#">Mais Buscados</a></li>
-          <li><a href="#">Sobre</a></li>
+          <li><a href="#Home">Home</a></li>
+          <li><a href="#Cupons">Cupons</a></li>
+          <li><a href="#Buscados">+ Buscados</a></li>
+          <li><a href="#Precos">Melhores Preços</a></li>
+          <li><a href="#Sobre">Sobre</a></li>
+
+          <!-- Pode adicionar novos, sem remover os existentes -->
+          <li class="aff-only-desktop"><a href="#Celulares">Celulares</a></li>
+          <li class="aff-only-desktop"><a href="#Informatica">Informática</a></li>
+          <li class="aff-only-desktop"><a href="#Casa">Casa</a></li>
         </ul>
       </nav>
+
+      <!-- Botão menu (MANTIDO: onclick + spans) -->
+      <div class="hamburger" onclick="toggleMenu()" aria-label="Abrir/fechar menu">
+        <span></span>
+        <span></span>
+        <span></span>
+      </div>
     </div>
   </header>
 
+  <!-- =========================================================
+       HERO (MANTIDO: section.hero existe)
+       Agora com carrossel simples (aff-*)
+       ========================================================= -->
+  <section class="hero aff-hero" aria-label="Destaques">
+    <div class="aff-hero-inner">
+      <div class="aff-hero-slide" aria-live="polite">
+        <p class="aff-hero-kicker" id="affHeroKicker">Destaque do dia</p>
+        <h1 class="aff-hero-title" id="affHeroTitle">Mega Liquidação</h1>
+        <p class="aff-hero-subtitle" id="affHeroSubtitle">Até <strong>60% OFF</strong> em eletrônicos e casa, por tempo limitado</p>
+
+        <div class="aff-hero-cta">
+          <a class="aff-btn aff-btn-primary" id="affHeroCta" href="#Precos">Conferir ofertas</a>
+          <a class="aff-btn aff-btn-ghost" href="#Cupons">Ver cupons</a>
+        </div>
+
+        <div class="aff-hero-meta">
+          <span class="aff-pill">Frete rápido*</span>
+          <span class="aff-pill">Ofertas atualizadas</span>
+          <span class="aff-pill">Links afiliados</span>
+        </div>
+      </div>
+
+      <!-- Setas -->
+      <button class="aff-hero-arrow aff-hero-prev" type="button" aria-label="Slide anterior">‹</button>
+      <button class="aff-hero-arrow aff-hero-next" type="button" aria-label="Próximo slide">›</button>
+
+      <!-- Indicadores -->
+      <div class="aff-hero-dots" role="tablist" aria-label="Indicadores do carrossel">
+        <button class="aff-dot" type="button" aria-label="Ir para slide 1" data-slide="0"></button>
+        <button class="aff-dot" type="button" aria-label="Ir para slide 2" data-slide="1"></button>
+        <button class="aff-dot" type="button" aria-label="Ir para slide 3" data-slide="2"></button>
+      </div>
+    </div>
+  </section>
+
+  <!-- =========================================================
+       BANNERS SECUNDÁRIOS (NOVO: aff-*)
+       ========================================================= -->
+  <section class="aff-banners" aria-label="Banners secundários">
+    <a class="aff-banner" href="#Cupons">
+      <div class="aff-banner-content">
+        <h3>Cupons de Desconto</h3>
+        <p>Economize em compras do dia a dia</p>
+        <span class="aff-banner-btn">Ver ofertas</span>
+      </div>
+      <div class="aff-banner-media" aria-hidden="true"></div>
+    </a>
+
+    <a class="aff-banner" href="#Celulares">
+      <div class="aff-banner-content">
+        <h3>Descontos em Smartphones</h3>
+        <p>Modelos populares com preço baixo</p>
+        <span class="aff-banner-btn">Ver ofertas</span>
+      </div>
+      <div class="aff-banner-media" aria-hidden="true"></div>
+    </a>
+
+    <a class="aff-banner" href="#Precos">
+      <div class="aff-banner-content">
+        <h3>Ofertas Relâmpago</h3>
+        <p>Quando acabar, acabou mesmo</p>
+        <span class="aff-banner-btn">Ver ofertas</span>
+      </div>
+      <div class="aff-banner-media" aria-hidden="true"></div>
+    </a>
+  </section>
+
+  <!-- =========================================================
+       CATEGORIAS COM ÍCONES (NOVO: aff-*)
+       ========================================================= -->
+  <section class="aff-categories" aria-label="Categorias">
+    <a class="aff-category" href="#Celulares">
+      <span class="aff-cat-ico" aria-hidden="true">📱</span>
+      <span class="aff-cat-label">Celulares</span>
+    </a>
+    <a class="aff-category" href="#Informatica">
+      <span class="aff-cat-ico" aria-hidden="true">💻</span>
+      <span class="aff-cat-label">Informática</span>
+    </a>
+    <a class="aff-category" href="#Casa">
+      <span class="aff-cat-ico" aria-hidden="true">🛋️</span>
+      <span class="aff-cat-label">Casa</span>
+    </a>
+    <a class="aff-category" href="#TVVideo">
+      <span class="aff-cat-ico" aria-hidden="true">📺</span>
+      <span class="aff-cat-label">TV e Vídeo</span>
+    </a>
+    <a class="aff-category" href="#Eletro">
+      <span class="aff-cat-ico" aria-hidden="true">🍳</span>
+      <span class="aff-cat-label">Eletro</span>
+    </a>
+    <a class="aff-category" href="#Cupons">
+      <span class="aff-cat-ico" aria-hidden="true">🏷️</span>
+      <span class="aff-cat-label">Cupons</span>
+    </a>
+  </section>
+
+  <!-- Âncoras (não removi, só garanti que existam no DOM) -->
+  <div id="Cupons" class="aff-anchor"></div>
+  <div id="Buscados" class="aff-anchor"></div>
+  <div id="Precos" class="aff-anchor"></div>
+  <div id="Sobre" class="aff-anchor"></div>
+  <div id="Celulares" class="aff-anchor"></div>
+  <div id="Informatica" class="aff-anchor"></div>
+  <div id="Casa" class="aff-anchor"></div>
+  <div id="TVVideo" class="aff-anchor"></div>
+  <div id="Eletro" class="aff-anchor"></div>
+
+  <!-- =========================================================
+       MAIN (MANTIDO: <main><div class="main"> existe)
+       Ajustado visualmente, mas estrutura existe
+       ========================================================= -->
   <main>
     <div class="main">
-      <h1>Bem-vindo</h1>
-      <p>As melhores ofertas reunidas em um só lugar.</p>
+      <div class="aff-welcome">
+        <div class="aff-welcome-text">
+          <h2>Bem-vindo ao Promo+</h2>
+          <p>
+            Aqui você encontra <strong>ofertas reais</strong> com links de afiliado, organizadas por categoria.
+            Sem mágica, só desconto e preguiça otimizada.
+          </p>
 
-      <div class="promo-card">
-        <img src="img/img 2.webp" alt="Produto em promoção" class="promo-img">
+          <div class="aff-welcome-actions">
+            <a class="aff-btn aff-btn-primary" href="#Precos">Ver melhores preços</a>
+            <a class="aff-btn aff-btn-ghost" href="#Cupons">Abrir cupons</a>
+          </div>
+        </div>
+
+        <div class="aff-welcome-side" aria-hidden="true">
+          <div class="aff-stat">
+            <strong>+200</strong>
+            <span>Ofertas</span>
+          </div>
+          <div class="aff-stat">
+            <strong>Diário</strong>
+            <span>Atualizações</span>
+          </div>
+          <div class="aff-stat">
+            <strong>Rápido</strong>
+            <span>Navegação</span>
+          </div>
+        </div>
+      </div>
+
+      <!-- Card promocional existente (MANTIDO: .promo-card) -->
+      <div class="promo-card aff-partner-card">
+        <!-- Não depende de imagem externa: usa placeholder local; se não existir, layout continua -->
+        <img src="img/placeholder.png" alt="Parceiro em destaque" class="promo-img" onerror="this.style.display='none'">
         <div class="promo-content">
-          <h2>Oferta Relâmpago 🔥</h2>
-          <p>Maquininha de cortar Cabelo e Babeador com 55% OFF por tempo limitado!</p>
-          <a href="#" class="promo-btn">Ver oferta</a>
+          <h2>Parceiro em Destaque 🔥</h2>
+          <p>Cupons selecionados e ofertas de alta demanda. Clique e confira.</p>
+          <a href="#Cupons" class="promo-btn">Ver Cupom</a>
         </div>
       </div>
     </div>
   </main>
 
-  <script src="script.js"></script>
-</body>
-</html>
+  <!-- =========================================================
+       OFFERS (MANTIDO: <section class="offers"> existe)
+       Cards com classe .offer-card mantida
+       ========================================================= -->
+  <section class="offers aff-offers" aria-label="Ofertas e produtos">
+    <div class="aff-section-head">
+      <h2>Ofertas em destaque</h2>
+      <p>Grid responsivo, estilo e-commerce, sem depender de imagem externa.</p>
+    </div>
+
+    <div class="aff-products-grid">
+      <!-- Card 1 -->
+      <article class="offer-card aff-product-card">
+        <div class="aff-product-media" aria-hidden="true">
+          <span class="aff-badge">-20%</span>
+        </div>
+        <h3 class="aff-product-title">Smartphone 128GB com câmera avançada e tela grande</h3>
+        <div class="aff-product-prices">
+          <span class="aff-price-old">R$ 1.999,00</span>
+          <span class="aff-price-now">R$ 1.599,00</span>
+        </div>
+        <a class="aff-btn aff-btn-primary aff-product-btn" href="#Precos">Ver oferta</a>
+      </article>
+
+      <!-- Card 2 -->
+      <article class="offer-card aff-product-card">
+        <div class="aff-product-media" aria-hidden="true">
+          <span class="aff-badge">-35%</span>
+        </div>
+        <h3 class="aff-product-title">Notebook leve para estudo e trabalho com SSD</h3>
+        <div class="aff-product-prices">
+          <span class="aff-price-old">R$ 3.499,00</span>
+          <span class="aff-price-now">R$ 2.279,00</span>
+        </div>
+        <a class="aff-btn aff-btn-primary aff-product-btn" href="#Precos">Ver oferta</a>
+      </article>
+
+      <!-- Card 3 -->
+      <article class="offer-card aff-product-card">
+        <div class="aff-product-media" aria-hidden="true">
+          <span class="aff-badge">-15%</span>
+        </div>
+        <h3 class="aff-product-title">Smart TV 50" 4K com apps e som melhorado</h3>
+        <div class="aff-product-prices">
+          <span class="aff-price-old">R$ 2.799,00</span>
+          <span class="aff-price-now">R$ 2.379,00</span>
+        </div>
+        <a class="aff-btn aff-btn-primary aff-product-btn" href="#Precos">Ver oferta</a>
+      </article>
+
+      <!-- Card 4 -->
+      <article class="offer-card aff-product-card">
+        <div class="aff-product-media" aria-hidden="true">
+          <span class="aff-badge">-40%</span>
+        </div>
+        <h3 class="aff-product-title">Fone Bluetooth com bateria longa e estojo compacto</h3>
+        <div class="aff-product-prices">
+          <span class="aff-price-old">R$ 299,00</span>
+          <span class="aff-price-now">R$ 179,00</span>
+        </div>
+        <a class="aff-btn aff-btn-primary aff-product-btn" href="#Precos">Ver oferta</a>
+      </article>
+
+      <!-- Card 5 -->
+      <article class="offer-card aff-product-card">
+        <div class="aff-product-media" aria-hidden="true">
+          <span class="aff-badge">-25%</span>
+        </div>
+        <h3 class="aff-product-title">Airfryer grande com controle simples e fácil limpeza</h3>
+        <div class="aff-product-prices">
+          <span class="aff-price-old">R$ 599,00</span>
+          <span class="aff-price-now">R$ 449,00</span>
+        </div>
+        <a class="aff-btn aff-btn-primary aff-product-btn" href="#Precos">Ver oferta</a>
+      </article>
+
+      <!-- Card 6 -->
+      <article class="offer-card aff-product-card">
+        <div class="aff-product-media" aria-hidden="true">
+          <span class="aff-badge">-18%</span>
+        </div>
+        <h3 class="aff-product-title">Mouse e teclado sem fio para setup minimalista</h3>
+        <div class="aff-product-prices">
+          <span class="aff-price-old">R$ 219,00</span>
+          <span class="aff-price-now">R$ 179,00</span>
+        </div>
+        <a class="aff-btn aff-btn-primary aff-product-btn" href="#Precos">Ver oferta</a>
+      </article>
+
+      <!-- Card 7 -->
+      <article class="offer-card aff-product-card">
+        <div class="aff-product-media" aria-hidden="true">
+          <span class="aff-badge">-30%</span>
+        </div>
+        <h3 class="aff-product-title">Cafeteira prática com jarra e timer</h3>
+        <div class="aff-product-prices">
+          <span class="aff-price-old">R$ 399,00</span>
+          <span class="aff-price-now">R$ 279,00</span>
+        </div>
+        <a class="aff-btn aff-btn-primary aff-product-btn" href="#Precos">Ver oferta</a>
+      </article>
+
+      <!-- Card 8 -->
+      <article class="offer-card aff-product-card">
+        <div class="aff-product-media" aria-hidden="true">
+          <span class="aff-badge">-22%</span>
+        </div>
+        <h3 class="aff-product-title">Cadeira confortável para longas horas no PC</h3>
+        <div class="aff-product-prices">
+          <span class="aff-price-old">R$ 899,00</span>
+          <span class="aff-price-now">R$ 699,00</span>
+        </div>
+        <a class="aff-btn aff-btn-primary aff-product-btn" href="#Precos">Ver oferta</a>
+      </article>
+    </div>
+  </section>
+
+  <!-- =========================================================
+       FOOTER (MANTIDO: estrutura + classes)
+       ========================================================= -->
+<footer class="footer">
+
+  <div class="footer-wrap">
+
+    <!-- Marca / Sobre -->
+    <div class="footer-col footer-brand">
+      <span class="brand">SrPromo+</span>
+      <p>
+        As melhores promoções, cupons e ofertas reunidas em um só lugar.
+        Simples, rápido e confiável.
+      </p>
+    </div>
+
+    <!-- Navegação -->
+    <div class="footer-col">
+      <h4>Sobre</h4>
+      <a href="#Sobre">Quem somos</a>
+      <a href="#Cupons">Cupons</a>
+      <a href="#Precos">Ofertas</a>
+      <a href="#Contato">Contato</a>
+    </div>
+
+    <!-- Legal -->
+    <div class="footer-col">
+      <h4>Informações</h4>
+      <a href="#Privacidade">Privacidade</a>
+      <a href="#Termos">Termos de uso</a>
+    </div>
+
+    <!-- Redes sociais -->
+    <div class="footer-col footer-social">
+      <h4>Fale conosco</h4>
+
+      <div class="social-icons">
+        <a href="https://wa.me/5500000000000" target="_blank" aria-label="WhatsApp">
+          <img src="img/rdsoci/wzp.png" alt="WhatsApp">
+        </a>
+
+        <a href="https://instagram.com/seuinstagram" target="_blank" aria-label="Instagram">
+          <img src="img/rdsoci/insta.png" alt="Instagram">
+        </a>
+      </div>
+    </div>
+
+  </div>
+
+  <div class="footer-bottom">
+    © 2026 SrPromo+. Todos os direitos reservados.
+  </div>
+
+</footer>
