@@ -20,7 +20,6 @@ html, body {
   overflow-y: auto;    /* permite scroll vertical */
   background: radial-gradient(1200px 600px at 10% 0%, rgb(87 166 255), transparent 55%), radial-gradient(900px 500px at 90% 10%, rgba(255, 204, 0, 0.12), transparent 55%), linear-gradient(5deg, #214a9e 45%, #38a3ff 100%);
   color: #ffffff;
-  color: #ffffff;
 }
 
 :root{
@@ -681,13 +680,17 @@ a {
   font-weight: 900;
   line-height: 1.25;
 
-  /* 2 linhas */
+  /* limitar a 2 linhas */
   display: -webkit-box;
-  -webkit-line-clamp: 2;
   -webkit-box-orient: vertical;
+  -webkit-line-clamp: 2;   /* versão com prefixo */
+  line-clamp: 2;           /* versão padrão mais nova */
   overflow: hidden;
+  text-overflow: ellipsis;
+
   min-height: 2.5em;
 }
+
 
 .aff-product-prices {
   display: flex;
