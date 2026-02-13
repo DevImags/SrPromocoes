@@ -2,7 +2,7 @@
   <div class="header">
     <div class="logo">
       <img src="img/img 1.PNG" alt="logo">
-      <span>SrPromoções</span>
+      <span role="heading" aria-level="1" >SrPromoções</span>
     </div>
 
     <!-- Busca (NOVO: aff-*) -->
@@ -10,7 +10,7 @@
       <input class="aff-search-input" type="search" placeholder="Buscar ofertas, cupons e produtos..."
         aria-label="Buscar" />
       <button class="aff-search-btn" type="button" aria-label="Pesquisar">
-        <img src="icons/lupa.png" alt="Buscar">
+        <img src="icons/lupa.svg" alt="Buscar" loading="lazy">
       </button>
     </div>
 
@@ -24,18 +24,20 @@
         <li><a href="#Sobre">Sobre</a></li>
 
         <!-- Pode adicionar novos, sem remover os existentes -->
-        <li class="aff-only-desktop"><a href="#Celulares">Celulares</a></li>
-        <li class="aff-only-desktop"><a href="#Informatica">Informática</a></li>
-        <li class="aff-only-desktop"><a href="#Casa">Casa</a></li>
+        <li class="aff-nav-only-desktop"><a href="#Celulares">Celulares</a></li>
+        <li class="aff-nav-only-desktop"><a href="#Informatica">Informática</a></li>
+        <li class="aff-nav-only-desktop"><a href="#Casa">Casa</a></li>
       </ul>
     </nav>
 
     <!-- Botão menu (MANTIDO: onclick + spans) -->
-    <div class="menu" onclick="toggleMenu()" aria-label="Abrir/fechar menu">
+    <button class="menu" onclick="toggleMenu()" aria-label="Abrir/fechar menu" aria-expanded="false">
       <span></span>
       <span></span>
       <span></span>
-    </div>
+    </button>
+
+
+  </div>
   </div>
 </header>
-

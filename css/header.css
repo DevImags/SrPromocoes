@@ -145,7 +145,7 @@
   transform: rotate(-45deg) translate(5px, -5px);
 }
 
-.aff-only-desktop {
+.aff-nav-only-desktop {
   display: list-item;
 }
 
@@ -154,7 +154,7 @@
   .aff-products-grid { grid-template-columns: repeat(2, 1fr); }
   .aff-categories { grid-template-columns: repeat(3, 1fr); }
   .aff-banners { grid-template-columns: 1fr; }
-  .aff-only-desktop { display: none; }
+  .aff-nav-only-desktop { display: none; }
 }
 
 @media (max-width: 768px) {
