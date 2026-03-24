@@ -24,6 +24,7 @@ a {
 
 img {
   max-width: 40%;
+  max-height: 100vh;
   height: auto;
   display: block; /* Remove o espaço extra abaixo da imagem */
 }
